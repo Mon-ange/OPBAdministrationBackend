@@ -2,3 +2,5 @@
 target/
 *.log
 *.class
+
+./application.yml
