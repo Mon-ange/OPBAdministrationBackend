@@ -10,13 +10,13 @@ import java.time.ZonedDateTime;
 @Data
 public class ShiftArrangement {
     private Integer id;
-    private Integer userId;
+    private Integer username;
     private ZonedDateTime start;
     private ZonedDateTime end;
     public ShiftArrangementDO getDO(){
         ShiftArrangementDO shiftArrangementDO = new ShiftArrangementDO();
         shiftArrangementDO.setId(id);
-        shiftArrangementDO.setUserId(userId);
+        shiftArrangementDO.setUsername(username);
         shiftArrangementDO.setStart(start);
         shiftArrangementDO.setEnd(end);
         return shiftArrangementDO;
@@ -27,7 +27,7 @@ public class ShiftArrangement {
         shiftArrangement.id = shiftArrangementDTO.getId();
         shiftArrangement.start = shiftArrangementDTO.getStart().atZone(ZoneId.of("UTC-8"));
         shiftArrangement.end = shiftArrangementDTO.getEnd().atZone(ZoneId.of("UTC-8"));
-        shiftArrangement.userId = shiftArrangementDTO.getUserId();
+        shiftArrangement.username = shiftArrangementDTO.getUserId();
         return shiftArrangement;
     }
 }
