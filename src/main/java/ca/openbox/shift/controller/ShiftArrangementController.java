@@ -1,13 +1,16 @@
 package ca.openbox.shift.controller;
 
+import ca.openbox.shift.dto.BatchCreateShiftByDateDTO;
 import ca.openbox.shift.dto.ShiftArrangementDTO;
 import ca.openbox.shift.entities.ShiftArrangement;
 import ca.openbox.shift.service.ShiftArrangementService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/shift/shiftarrangement")
@@ -16,10 +19,36 @@ public class ShiftArrangementController {
     @Autowired
     ShiftArrangementService shiftArrangementService;
     @PutMapping
-    public void putArrangement(@RequestBody ShiftArrangementDTO shiftArrangementDTO){
+    public ShiftArrangement putArrangement(@RequestBody ShiftArrangementDTO shiftArrangementDTO){
         System.out.println(shiftArrangementDTO.toString());
         ShiftArrangement shiftArrangement = ShiftArrangement.fromDTO(shiftArrangementDTO);
         System.out.println(shiftArrangement.toString());
-        shiftArrangementService.addArrangement(shiftArrangement);
+        return shiftArrangementService.addArrangement(shiftArrangement);
     }
+    @CrossOrigin(origins = "http://localhost:8081")
+    @PutMapping("/batchCreateByDate")
+    public void batchCreateByDate(@RequestBody BatchCreateShiftByDateDTO batchCreateShiftByDateDTO){
+        for(int i = 0;i<batchCreateShiftByDateDTO.getUsernames().size();++i){
+            ShiftArrangement shiftArrangement = new ShiftArrangement();
+            shiftArrangement.setUsername(batchCreateShiftByDateDTO.getUsernames().get(i));
+            shiftArrangement.setStart(batchCreateShiftByDateDTO.getWorkDate().withFixedOffsetZone().withHour(9).withMinute(30).withSecond(0));
+            shiftArrangement.setEnd(batchCreateShiftByDateDTO.getWorkDate().withFixedOffsetZone().withHour(18).withMinute(0).withSecond(0));
+            shiftArrangement.setStatus("active");
+            shiftArrangementService.addArrangement(shiftArrangement);
+        }
+    }
+    @CrossOrigin(origins = "http://localhost:8081")
+    @PutMapping("/deleteCurrentShift")
+    public void deleteCurrentShift(@RequestBody ShiftArrangementDTO shiftArrangementDTO){
+        ShiftArrangement shiftArrangement =ShiftArrangement.fromDTO(shiftArrangementDTO);
+        System.out.println(shiftArrangement.toString());
+        shiftArrangementService.deleteArrangement(shiftArrangement);
+    }
+    @CrossOrigin(origins = "http://localhost:8081")
+    @PutMapping("/modifyCurrentShift")
+    public ShiftArrangement modifyArrangement(@RequestBody ShiftArrangementDTO shiftArrangementDTO){
+        ShiftArrangement shiftArrangement = ShiftArrangement.fromDTO(shiftArrangementDTO);
+        return shiftArrangementService.modifyArrangement(shiftArrangement);
+    }
+
 }

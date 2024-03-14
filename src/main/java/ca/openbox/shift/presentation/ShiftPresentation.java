@@ -1,8 +1,8 @@
 package ca.openbox.shift.presentation;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
+
 
 import java.time.ZonedDateTime;
 

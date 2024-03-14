@@ -19,7 +19,7 @@ public class ShiftPresentor {
     @Autowired
     ShiftPresentationRepository shiftPresentationRepository;
 
-    @CrossOrigin(origins = "http://localhost:8082")
+    @CrossOrigin(origins = "http://localhost:8081")
     @GetMapping("/getShiftByStartDateScope")
     public Collection<ShiftPresentation> getShiftByStartDateScope(@RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime start,
                                                                   @RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime end){
