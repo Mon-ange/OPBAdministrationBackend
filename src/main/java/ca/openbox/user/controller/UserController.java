@@ -25,8 +25,7 @@ public class UserController {
         Authentication authenticationRequest = UsernamePasswordAuthenticationToken.unauthenticated(loginDTO.getUsername(),
                 loginDTO.getPassword());
         Authentication authenticationResponse = this.authenticationManager.authenticate(authenticationRequest);
-        //return authenticationResponse.getPrincipal();
-        return request.getSession(false).getId();
+        return request.getSession(true).getId();
     }
     @Autowired
     UserService userService;

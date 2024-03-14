@@ -12,6 +12,8 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -29,12 +31,11 @@ import java.util.Map;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
-
     CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://localhost:8081/**");
+        configuration.addAllowedOrigin("http://localhost:8081");
         configuration.addAllowedMethod("*");
-        configuration.setAllowedMethods(Arrays.asList("GET","POST","OPTIONS", "PUT"));
+        configuration.setAllowedMethods(Arrays.asList("POST","GET", "PUT", "DELETE", "OPTIONS"));
         configuration.addAllowedOriginPattern("*");
         configuration.setAllowCredentials(true);
         configuration.addAllowedHeader("*");
@@ -49,10 +50,9 @@ public class SecurityConfiguration {
                         authorize.requestMatchers(HttpMethod.PUT, "/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/login").permitAll().anyRequest().authenticated()
-                ).cors().configurationSource(corsConfigurationSource()).and().csrf().disable();
+                ).csrf(csrf -> csrf.disable()).cors(cors -> cors.configurationSource(corsConfigurationSource()));
         return http.build();
     }
-
     @Bean
     PasswordEncoder passwordEncoder(){
         String idForEncode = "bcrypt";
