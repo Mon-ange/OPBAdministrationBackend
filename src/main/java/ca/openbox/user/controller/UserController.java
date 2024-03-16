@@ -3,6 +3,7 @@ package ca.openbox.user.controller;
 import ca.openbox.user.dataobject.UserDO;
 import ca.openbox.user.dto.LoginDTO;
 import ca.openbox.user.dto.RegisterDTO;
+import ca.openbox.user.dto.UserDTO;
 import ca.openbox.user.entities.User;
 import ca.openbox.user.repository.UserRepository;
 import ca.openbox.user.service.UserService;
@@ -22,11 +23,19 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:8081", allowCredentials="true", allowedHeaders = {"*"})
     @PostMapping("/login")
     public Object login(@RequestBody LoginDTO loginDTO, HttpServletRequest request){
+        System.out.println(request.getSession().getId());
         Authentication authenticationRequest = UsernamePasswordAuthenticationToken.unauthenticated(loginDTO.getUsername(),
                 loginDTO.getPassword());
         Authentication authenticationResponse = this.authenticationManager.authenticate(authenticationRequest);
-        return request.getSession(true).getId();
+        User user =userService.getUserByUsername(loginDTO.getUsername());
+        UserDTO userDTO = new UserDTO();
+        userDTO.setName(user.getName());
+        userDTO.setUsername(user.getUsername());
+        userDTO.setRoles(user.getRoles());
+        userDTO.setJSessionID(request.getSession(true).getId());
+        return userDTO;
     }
+
     @Autowired
     UserService userService;
     @CrossOrigin(origins = "http://localhost:8081",methods = {RequestMethod.POST})

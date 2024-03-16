@@ -4,7 +4,9 @@ import ca.openbox.shift.dto.BatchCreateShiftByDateDTO;
 import ca.openbox.shift.dto.ShiftArrangementDTO;
 import ca.openbox.shift.entities.ShiftArrangement;
 import ca.openbox.shift.service.ShiftArrangementService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.ZoneId;
@@ -25,9 +27,10 @@ public class ShiftArrangementController {
         System.out.println(shiftArrangement.toString());
         return shiftArrangementService.addArrangement(shiftArrangement);
     }
-    @CrossOrigin(origins = "http://localhost:8081")
+    @CrossOrigin(origins = "http://localhost:8081", allowCredentials = "true")
     @PutMapping("/batchCreateByDate")
-    public void batchCreateByDate(@RequestBody BatchCreateShiftByDateDTO batchCreateShiftByDateDTO){
+    public void batchCreateByDate(@RequestBody BatchCreateShiftByDateDTO batchCreateShiftByDateDTO, HttpServletRequest request){
+        System.out.println(request.getUserPrincipal());
         for(int i = 0;i<batchCreateShiftByDateDTO.getUsernames().size();++i){
             ShiftArrangement shiftArrangement = new ShiftArrangement();
             shiftArrangement.setUsername(batchCreateShiftByDateDTO.getUsernames().get(i));
