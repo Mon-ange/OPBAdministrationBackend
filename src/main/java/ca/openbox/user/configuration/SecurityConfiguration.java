@@ -50,7 +50,7 @@ public class SecurityConfiguration {
                         authorize
                                 .requestMatchers(HttpMethod.PUT,"/shift/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/login").permitAll().anyRequest().authenticated()
+                                .requestMatchers(HttpMethod.POST,"/user/**").permitAll()
                 ).csrf(csrf -> csrf.disable()).cors(cors -> cors.configurationSource(corsConfigurationSource()));
         return http.build();
     }
@@ -60,6 +60,13 @@ public class SecurityConfiguration {
         Map encoders = new HashMap<>();
         encoders.put(idForEncode,new BCryptPasswordEncoder());
         return new DelegatingPasswordEncoder(idForEncode, encoders);
+    }
+    @Bean
+    PasswordEncoder sinEncoder(){//
+        String idForEncode = "bcrypt";
+        Map encoders = new HashMap<>();
+        encoders.put(idForEncode,new BCryptPasswordEncoder());
+        return new DelegatingPasswordEncoder(idForEncode,encoders);
     }
 
     @Bean

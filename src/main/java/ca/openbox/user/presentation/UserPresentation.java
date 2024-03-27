@@ -12,6 +12,8 @@ import lombok.Data;
 @Entity
 @Table(name = "opb_user")
 public class UserPresentation {
+    //CQRS using presentation
+    //Query from db,not crossing entity
     @Id
     private String username;
     private String name;

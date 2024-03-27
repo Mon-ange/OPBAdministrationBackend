@@ -8,7 +8,9 @@
 /dataSources.local.xml
 
 .idea/
+.DS_STORE
 target/
 *.log
 *.class
+*.jar
 

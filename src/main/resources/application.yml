@@ -6,3 +6,9 @@ spring:
   jackson:
     deserialization:
       adjust-dates-to-context-time-zone: false
+secret:
+  key: ENC(S/i16lOGf4iJmnIITKONL/920hvO4MtnKXJlOmWQKHA3W2qmuwayuQ31iuCaiAy6SylWax8MzKZRWJKkWUtymQ==)
+  iv: ENC(gZ1qhmopxdAqmC4wpNNnfeAFP/rP+rF7k3wG2APmdm+HNaUp13XtY2o06lOi47fJ8ZsQkA4Anr4GUw2wEQY+Pw==)
+server:
+  servlet:
+    context-path: /api

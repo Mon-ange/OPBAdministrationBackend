@@ -27,4 +27,12 @@ public class ShiftPresentor {
         return shiftPresentationRepository.getSchedulePresentationByStartdate(start, end);
     }
 
+    @CrossOrigin(origins = "http://localhost:8081")
+    @GetMapping("/{username}/getShiftByStartDateScope")
+    public Collection<ShiftPresentation> getMyShiftByStartDateScope(@PathVariable String username,
+                                                                    @RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime start,
+                                                                    @RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime end){
+        return shiftPresentationRepository.getSchedulePresentationByUsernameAndStartdate(username,start,end);
+    }
+
 }

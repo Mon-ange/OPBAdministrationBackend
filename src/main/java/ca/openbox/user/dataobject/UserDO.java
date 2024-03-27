@@ -6,6 +6,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.io.File;
+import java.util.Date;
 
 
 @Data
@@ -16,5 +18,13 @@ public class UserDO {
     private String username;
     private String name;
     private String password;
+    private Date birthdate;
     private String roles;
+    private String legalname;
+    private String sinno;
+    private String address;
+    private String phoneNumber;
+    private String email;
+    //private String personalDocumentsPath;
+    //cause of list
 }
