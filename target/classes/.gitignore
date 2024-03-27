@@ -1,6 +1,0 @@
-.idea/
-target/
-*.log
-*.class
-
-./application.yml
