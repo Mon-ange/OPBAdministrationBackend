@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/presentor/shift/")
@@ -33,6 +34,13 @@ public class ShiftPresentor {
                                                                     @RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime start,
                                                                     @RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime end){
         return shiftPresentationRepository.getSchedulePresentationByUsernameAndStartdate(username,start,end);
+    }
+
+    public List<ShiftPresentation> getByGroupAndTimeScope(String groupName,
+                                                          ZonedDateTime start,
+                                                          ZonedDateTime end){
+        return shiftPresentationRepository.getByGroupAndTimeScope(groupName,start,end);
+
     }
 
 }
