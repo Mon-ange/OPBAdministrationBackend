@@ -32,23 +32,27 @@ public class LeaveApplicationController {
 
     }
 
-    @CrossOrigin(origins = "http://localhost:8081")
+    @CrossOrigin(origins = "http://localhost:8081",methods = {RequestMethod.POST})
     @PostMapping("/application/{applicationID}/permit")
     public void permit(@PathVariable Integer applicationID){
         leaveApplicationService.permitApplication(applicationID);
     }
 
-    @CrossOrigin(origins = "http://localhost:8081")
+    @CrossOrigin(origins = "http://localhost:8081",methods = {RequestMethod.POST})
     @PostMapping("/application/{applicationID}/reject")
     public void reject(@PathVariable Integer applicationID,@RequestBody String rejectReason){
         leaveApplicationService.rejectApplication(applicationID,rejectReason);
     }
 
-    @CrossOrigin(origins ="http://localhost:8081")
+    @CrossOrigin(origins ="http://localhost:8081",methods = {RequestMethod.GET})
     @GetMapping("application")
     public List<LeaveApplication> getApplicationsByApplicant(@RequestParam(value = "handler",required = false) String handler,
                                                              @RequestParam(value = "applicant",required = false) String applicant){
         return leaveApplicationService.getApplicationsByHandlerOrApplicant(handler,applicant);
     }
-
+    @CrossOrigin(origins = "http://localhost:8081")
+    @GetMapping("application/getAllApplications")
+    public List<LeaveApplication> getAllApplications(){
+        return leaveApplicationService.getAllApplications();
+    }
 }

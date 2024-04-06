@@ -39,4 +39,12 @@ public class LeaveApplicationService {
         }
         return leaveApplicationList;
     }
+    public List<LeaveApplication> getAllApplications(){
+        List<LeaveApplication> leaveApplicationList = new ArrayList<>();
+        List<LeaveApplicationDO> leaveApplicationDOList = leaveApplicationRepository.getLeaveApplicationDOByStatusIsNotContaining("active");
+        for(int i = 0; i<leaveApplicationDOList.size();++i){
+            leaveApplicationList.add(LeaveApplication.fromDO(leaveApplicationDOList.get(i)));
+        }
+        return leaveApplicationList;
+    }
 }

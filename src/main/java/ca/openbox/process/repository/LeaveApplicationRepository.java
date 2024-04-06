@@ -9,4 +9,5 @@ public interface LeaveApplicationRepository extends Repository<LeaveApplicationD
     LeaveApplicationDO save(LeaveApplicationDO leaveApplicationDO);
     LeaveApplicationDO getLeaveApplicationDOById(Integer id);
     List<LeaveApplicationDO> getLeaveApplicationDOByCurrentHandlerOrApplicant(String currentHandler, String applicant);
+    List<LeaveApplicationDO> getLeaveApplicationDOByStatusIsNotContaining(String stauts);
 }
