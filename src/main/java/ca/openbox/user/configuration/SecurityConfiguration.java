@@ -53,6 +53,9 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.POST,"/user/**").permitAll()
                                 .requestMatchers(HttpMethod.PUT,"/process/**").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/process/**").permitAll()
+                                .requestMatchers(HttpMethod.POST,"/announcement/**").permitAll()
+                                .requestMatchers(HttpMethod.DELETE,"/announcement/**").permitAll()
+                                .requestMatchers(HttpMethod.PUT,"/announcement/**").permitAll()
                 ).csrf(csrf -> csrf.disable()).cors(cors -> cors.configurationSource(corsConfigurationSource()));
         return http.build();
     }

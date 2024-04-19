@@ -41,7 +41,7 @@ public class LeaveApplicationService {
     }
     public List<LeaveApplication> getAllApplications(){
         List<LeaveApplication> leaveApplicationList = new ArrayList<>();
-        List<LeaveApplicationDO> leaveApplicationDOList = leaveApplicationRepository.getLeaveApplicationDOByStatusIsNotContaining("active");
+        List<LeaveApplicationDO> leaveApplicationDOList = leaveApplicationRepository.getLeaveApplicationDOByStatusIsNotContaining("pending");
         for(int i = 0; i<leaveApplicationDOList.size();++i){
             leaveApplicationList.add(LeaveApplication.fromDO(leaveApplicationDOList.get(i)));
         }

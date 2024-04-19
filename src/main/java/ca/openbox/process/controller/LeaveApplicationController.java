@@ -23,7 +23,7 @@ public class LeaveApplicationController {
         leaveApplication.setLeaveType(putLeaveApplicationDTO.getLeaveType());
         leaveApplication.setStart(putLeaveApplicationDTO.getStart());
         leaveApplication.setEnd(putLeaveApplicationDTO.getEnd());
-        leaveApplication.setStatus("active");
+        leaveApplication.setStatus("pending");
         leaveApplication.setSubmitTime(ZonedDateTime.now());
         leaveApplication.setCurrentHandler("Raynold");
         leaveApplication.setReason(putLeaveApplicationDTO.getReason());

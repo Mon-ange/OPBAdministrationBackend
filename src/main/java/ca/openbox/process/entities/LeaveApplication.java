@@ -17,6 +17,7 @@ public class LeaveApplication {
     private String status;
     private String reason;
     private String rejectReason;
+    private String note;
     static public LeaveApplication fromDO(LeaveApplicationDO leaveApplicationDO){
         LeaveApplication leaveApplication = new LeaveApplication();
         leaveApplication.id = leaveApplicationDO.getId();
@@ -29,6 +30,7 @@ public class LeaveApplication {
         leaveApplication.submitTime = leaveApplicationDO.getSubmitTime();
         leaveApplication.rejectReason = leaveApplicationDO.getRejectReason();
         leaveApplication.reason=leaveApplicationDO.getReason();
+        leaveApplication.note = leaveApplicationDO.getNote();
         return leaveApplication;
     }
     public LeaveApplicationDO toDO(){
@@ -43,6 +45,7 @@ public class LeaveApplication {
         leaveApplicationDO.setCurrentHandler(currentHandler);
         leaveApplicationDO.setReason(reason);
         leaveApplicationDO.setRejectReason(rejectReason);
+        leaveApplicationDO.setNote(note);
         return leaveApplicationDO;
 
     }

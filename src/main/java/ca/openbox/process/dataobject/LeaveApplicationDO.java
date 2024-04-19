@@ -21,4 +21,5 @@ public class LeaveApplicationDO {
     private String status;
     private String reason;
     private String rejectReason;
+    private String note;
 }
