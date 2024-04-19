@@ -13,12 +13,12 @@ import java.time.ZonedDateTime;
 import java.util.List;
 @Transactional
 @RestController
-@RequestMapping("announcement")
+@RequestMapping("/announcement")
 public class AnnouncementController {
     @Autowired
     AnnouncementService announcementService;
     @CrossOrigin(origins = "http://localhost:8081")
-    @PostMapping("")
+    @PostMapping
     public Announcement addAnnouncement(@RequestBody PostAnnouncementDTO postAnnouncementDTO){
         Announcement announcement = new Announcement();
         announcement.setTitle(postAnnouncementDTO.getTitle());
@@ -29,7 +29,7 @@ public class AnnouncementController {
         return announcementService.addAnnouncement(announcement);
     }
     @CrossOrigin(origins = "http://localhost:8081")
-    @GetMapping("")
+    @GetMapping
     public List<Announcement> getAnnouncementAfter(@RequestParam("expireAfter") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime expiryDate){
         return announcementService.getAnnouncementAfter(expiryDate);
     }
