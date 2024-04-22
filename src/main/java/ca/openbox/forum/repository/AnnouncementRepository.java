@@ -1,6 +1,7 @@
 package ca.openbox.forum.repository;
 
 import ca.openbox.forum.dataobject.AnnouncementDO;
+import ca.openbox.forum.entities.AnnouncementReadLog;
 import org.springframework.data.repository.Repository;
 
 import java.time.ZonedDateTime;
