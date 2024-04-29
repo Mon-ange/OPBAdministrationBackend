@@ -11,5 +11,5 @@ public interface UserPresentationRepository extends JpaRepository<UserPresentati
 
     )
     public Collection<UserPresentation> getUserPresentationByRole(String role);*/
-    public Collection<UserPresentation> findByRolesLike(String role);
+    public Collection<UserPresentation> findByRolesLikeAndActiveIsTrue(String role);
 }
