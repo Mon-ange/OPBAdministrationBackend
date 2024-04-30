@@ -41,6 +41,7 @@ public class UserService implements UserDetailsService {
     }
     public void setPassword(String username, String password){
         User user = getUserByUsername(username);
+
         user.setPassword(passwordEncoder.encode(password));
         save(user);
     }
@@ -51,6 +52,7 @@ public class UserService implements UserDetailsService {
     }
     public void save(User user){
         UserDO userDO = user.getDO();
+        userDO.setActive(1);
         userRepository.save(userDO);
     }
     public User getUserByUsername(String username){
