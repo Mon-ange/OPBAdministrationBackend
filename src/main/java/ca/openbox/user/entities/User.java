@@ -26,6 +26,7 @@ public class User {
     private String email;
     private String personalDocumentsPath;
     private File personalDocuments;
+    private Integer active;
 
     public UserDO getDO(){
         UserDO userDO = new UserDO();
@@ -39,6 +40,7 @@ public class User {
         userDO.setAddress(address);
         userDO.setPhoneNumber(phoneNumber);
         userDO.setEmail(email);
+        userDO.setActive(active);
         //userDO.setPersonalDocumentsPath(personalDocumentsPath);
         //wait for list
 
@@ -56,6 +58,7 @@ public class User {
         user.address = userDO.getAddress();
         user.phoneNumber = userDO.getPhoneNumber();
         user.email = userDO.getEmail();
+        user.active = userDO.getActive();
         //user.personalDocumentsPath = userDO.getPersonalDocumentsPath();
         return user;
     }

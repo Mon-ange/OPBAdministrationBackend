@@ -45,14 +45,20 @@ public class LeaveApplicationController {
     }
 
     @CrossOrigin(origins ="http://localhost:8081",methods = {RequestMethod.GET})
-    @GetMapping("application")
+    @GetMapping("/application")
     public List<LeaveApplication> getApplicationsByApplicant(@RequestParam(value = "handler",required = false) String handler,
                                                              @RequestParam(value = "applicant",required = false) String applicant){
         return leaveApplicationService.getApplicationsByHandlerOrApplicant(handler,applicant);
     }
     @CrossOrigin(origins = "http://localhost:8081")
-    @GetMapping("application/getAllApplications")
+    @GetMapping("/application/getAllApplications")
     public List<LeaveApplication> getAllApplications(){
         return leaveApplicationService.getAllApplications();
+    }
+
+    @CrossOrigin(origins = "http://localhost:8081")
+    @PutMapping("/application/{applicationID}/note")
+    public void putNote(@PathVariable Integer applicationID, @RequestBody String note){
+        leaveApplicationService.addNoteToApplication(applicationID,note);
     }
 }

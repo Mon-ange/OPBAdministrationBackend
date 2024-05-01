@@ -47,4 +47,9 @@ public class LeaveApplicationService {
         }
         return leaveApplicationList;
     }
+    public void addNoteToApplication(Integer applicationID, String note){
+        LeaveApplicationDO leaveApplicationDO = leaveApplicationRepository.getLeaveApplicationDOById(applicationID);
+        leaveApplicationDO.setNote(note);
+        leaveApplicationRepository.save(leaveApplicationDO);
+    }
 }

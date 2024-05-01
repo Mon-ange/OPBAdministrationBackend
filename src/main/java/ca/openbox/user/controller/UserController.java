@@ -38,6 +38,7 @@ public class UserController {
         userDTO.setAddress(user.getAddress());
         userDTO.setBirthdate(user.getBirthdate());
         userDTO.setJSessionID(request.getSession(true).getId());
+        userDTO.setActive(user.getActive());
         return userDTO;
     }
 
