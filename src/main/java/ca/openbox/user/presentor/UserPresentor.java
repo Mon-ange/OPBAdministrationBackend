@@ -16,7 +16,7 @@ public class UserPresentor {
     @CrossOrigin(origins = "http://localhost:8081")
     @GetMapping("/getUserByRoleName")
     public Collection<UserPresentation> getUserByRoleName(@RequestParam("role") String role){
-        return userPresentationRepository.findByRolesLike("%"+role+"%");
+        return userPresentationRepository.findByRolesLikeAndActiveIsTrue("%"+role+"%");
     }
 /*    @CrossOrigin(origins = "http://localhost:8081")
     @GetMapping("/getUserByUsername")

@@ -21,7 +21,7 @@ public class UserService implements UserDetailsService {
     Cryptor cryptor;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDO userDO = userRepository.getUserDOByUsername(username);
+        UserDO userDO = userRepository.getUserDOByUsernameAndActiveIsTrue(username);
         System.out.println(userDO.getRoles());
         UserDetails userDetails = org.springframework.security.core.userdetails.User.withUsername(userDO.getUsername()).password(userDO.getPassword()).roles(userDO.getRoles().split("|")).build();
         return userDetails;
@@ -54,7 +54,7 @@ public class UserService implements UserDetailsService {
         userRepository.save(userDO);
     }
     public User getUserByUsername(String username){
-        UserDO userDO = userRepository.getUserDOByUsername(username);
+        UserDO userDO = userRepository.getUserDOByUsernameAndActiveIsTrue(username);
         User user = User.fromDO(userDO);
         return user;
     }

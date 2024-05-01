@@ -27,4 +27,5 @@ public class UserDO {
     private String email;
     //private String personalDocumentsPath;
     //cause of list
+    private Integer active;
 }

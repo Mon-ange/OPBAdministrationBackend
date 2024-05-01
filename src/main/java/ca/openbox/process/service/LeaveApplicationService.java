@@ -33,7 +33,7 @@ public class LeaveApplicationService {
     public List<LeaveApplication> getApplicationsByHandlerOrApplicant(String handler, String applicant){
         List<LeaveApplication> leaveApplicationList = new ArrayList<>();
        // leaveApplicationRepository.getLeaveApplication
-        List<LeaveApplicationDO> leaveApplicationDOList = leaveApplicationRepository.getLeaveApplicationDOByCurrentHandlerOrApplicant(handler,applicant);
+        List<LeaveApplicationDO> leaveApplicationDOList = leaveApplicationRepository.getLeaveApplicationDOByCurrentHandlerOrApplicantOrderBySubmitTimeDesc(handler,applicant);
         for(int i = 0; i<leaveApplicationDOList.size();++i){
             leaveApplicationList.add(LeaveApplication.fromDO(leaveApplicationDOList.get(i)));
         }
@@ -41,10 +41,15 @@ public class LeaveApplicationService {
     }
     public List<LeaveApplication> getAllApplications(){
         List<LeaveApplication> leaveApplicationList = new ArrayList<>();
-        List<LeaveApplicationDO> leaveApplicationDOList = leaveApplicationRepository.getLeaveApplicationDOByStatusIsNotContaining("pending");
+        List<LeaveApplicationDO> leaveApplicationDOList = leaveApplicationRepository.getLeaveApplicationDOByStatusIsNotContainingOrderBySubmitTimeDesc("pending");
         for(int i = 0; i<leaveApplicationDOList.size();++i){
             leaveApplicationList.add(LeaveApplication.fromDO(leaveApplicationDOList.get(i)));
         }
         return leaveApplicationList;
+    }
+    public void addNoteToApplication(Integer applicationID, String note){
+        LeaveApplicationDO leaveApplicationDO = leaveApplicationRepository.getLeaveApplicationDOById(applicationID);
+        leaveApplicationDO.setNote(note);
+        leaveApplicationRepository.save(leaveApplicationDO);
     }
 }

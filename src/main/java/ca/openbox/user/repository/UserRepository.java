@@ -5,7 +5,7 @@ import ca.openbox.user.entities.User;
 import org.springframework.data.repository.Repository;
 
 public interface UserRepository extends Repository<UserDO,String> {
-    UserDO getUserDOByUsername(String username);
+    UserDO getUserDOByUsernameAndActiveIsTrue(String username);
     UserDO save(UserDO userDO);
 
 

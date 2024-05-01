@@ -23,5 +23,6 @@ public class UserDTO {
     private String phoneNumber;
     private String email;
     //And mustn't need personaldocuments.
+    private Integer active;
 
 }
