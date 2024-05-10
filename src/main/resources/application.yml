@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/opb
-    username: root
-    password: ENC(PmVRMHxznTWK4zL7lW7rIx0M2s/aYtM0aCYEAusT2Jc2oU4kMk3nttlY4xIdi31B)
+    url: ENC(Ohh5B1rZyl0b/S4PdW8ST3kYQCODmkzrgFYrotE4lT5YnfEd04OJ8duP6TmFgXsIc6Hs1+qoO0MQFhAxmz0YADsYuqW5Wu2Jj0DjU0yRvMoZMKFS/2HSR7UsYZPLNeFgLBT67YOUAwO1ZnOMeZuyrmtPSwujXNW24HANvHaocEM=)
+    username: admin
+    password: ENC(t4jtm/bmRRw67dpe1ou7sr+yjKQf9SF5nmxt+7GiPq0mbRMwK9u33xmXxbybnirZuvkZSLvNrLr10w/tkuNhSQ==)
   jackson:
     deserialization:
       adjust-dates-to-context-time-zone: false
@@ -11,6 +11,7 @@ spring:
 secret:
   key: ENC(S/i16lOGf4iJmnIITKONL/920hvO4MtnKXJlOmWQKHA3W2qmuwayuQ31iuCaiAy6SylWax8MzKZRWJKkWUtymQ==)
   iv: ENC(gZ1qhmopxdAqmC4wpNNnfeAFP/rP+rF7k3wG2APmdm+HNaUp13XtY2o06lOi47fJ8ZsQkA4Anr4GUw2wEQY+Pw==)
+  jwt: ENC(0aFqmqsTMmBTxJyGagODqLkkxL4ENwcaVMJvOFOQRz0vAHII8FML81o0dwjQL9WqtmuURGZ8XwANcIo+mXxsGl9jSr4OPX6t6OW8QvCrf7OEvqtksW3Md0uMv31VW+Z0)
 server:
   servlet:
     context-path: /api
