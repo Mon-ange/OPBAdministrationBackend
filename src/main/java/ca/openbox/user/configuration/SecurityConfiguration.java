@@ -70,13 +70,6 @@ public class SecurityConfiguration {
         encoders.put(idForEncode,new BCryptPasswordEncoder());
         return new DelegatingPasswordEncoder(idForEncode, encoders);
     }
-    @Bean
-    PasswordEncoder sinEncoder(){//
-        String idForEncode = "bcrypt";
-        Map encoders = new HashMap<>();
-        encoders.put(idForEncode,new BCryptPasswordEncoder());
-        return new DelegatingPasswordEncoder(idForEncode,encoders);
-    }
 
     @Bean
     AuthenticationManager authenticationManager(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder){

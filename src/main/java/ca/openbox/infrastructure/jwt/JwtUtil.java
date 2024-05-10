@@ -1,18 +1,25 @@
 package ca.openbox.infrastructure.jwt;
 
 
+import ca.openbox.user.entities.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+@Component
 public class JwtUtil {
-    private String SECRET_KEY="secret";
+    @Value("${secret.jwt}")
+    private String SECRET_KEY;
     public String extractUsername(String token){
         return extractClaim(token, Claims::getSubject);
     }
@@ -24,14 +31,14 @@ public class JwtUtil {
         return claimsResolver.apply(claims);
     }
     private Claims extractAllClaims(String token){
-        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(SECRET_KEY).build().parseSignedClaims(token).getPayload();
     }
     private Boolean isTokenExpired(String token){
         return extractExpiration(token).before(new Date());
     }
-    public String generateToken(UserDetails userDetails){
+    public String generateToken(User user){
         Map<String,Object> claims = new HashMap<>();
-        return createToken(claims,userDetails.getUsername());
+        return createToken(claims,user.getUsername());
     }
     private String createToken(Map<String, Object> claims,String subject){
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))

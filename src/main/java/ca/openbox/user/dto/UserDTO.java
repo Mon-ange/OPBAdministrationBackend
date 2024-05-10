@@ -22,6 +22,7 @@ public class UserDTO {
     //ban the meaningless transmission of sin
     private String phoneNumber;
     private String email;
+    private String token;
     //And mustn't need personaldocuments.
     private Integer active;
 

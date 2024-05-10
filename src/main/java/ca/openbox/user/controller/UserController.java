@@ -1,5 +1,6 @@
 package ca.openbox.user.controller;
 
+import ca.openbox.infrastructure.jwt.JwtUtil;
 import ca.openbox.infrastructure.security.Cryptor;
 import ca.openbox.user.dataobject.UserDO;
 import ca.openbox.user.dto.LoginDTO;
@@ -19,6 +20,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("user")
 @RestController
 public class UserController {
+
+    @Autowired
+    JwtUtil jwtUtil;
     @Autowired
     AuthenticationManager authenticationManager;
     @CrossOrigin(origins = "http://localhost:8081", allowCredentials="true", allowedHeaders = {"*"})
@@ -39,6 +43,7 @@ public class UserController {
         userDTO.setBirthdate(user.getBirthdate());
         userDTO.setJSessionID(request.getSession(true).getId());
         userDTO.setActive(user.getActive());
+        userDTO.setToken(jwtUtil.generateToken(user));
         return userDTO;
     }
 
