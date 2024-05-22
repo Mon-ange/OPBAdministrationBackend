@@ -43,6 +43,11 @@ public class LeaveApplicationController {
     public void reject(@PathVariable Integer applicationID,@RequestBody String rejectReason){
         leaveApplicationService.rejectApplication(applicationID,rejectReason);
     }
+    @CrossOrigin(origins = "http://localhost:8081",methods = {RequestMethod.DELETE})
+    @DeleteMapping("/application/{applicationID}")
+    public void delete(@PathVariable Integer applicationID){
+        leaveApplicationService.deleteApplication(applicationID);
+    }
 
     @CrossOrigin(origins ="http://localhost:8081",methods = {RequestMethod.GET})
     @GetMapping("/application")

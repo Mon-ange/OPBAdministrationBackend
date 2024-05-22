@@ -30,6 +30,9 @@ public class LeaveApplicationService {
         leaveApplicationDO.setCurrentHandler(leaveApplicationDO.getApplicant());
         leaveApplicationRepository.save(leaveApplicationDO);
     }
+    public void deleteApplication(Integer applicationID){
+        leaveApplicationRepository.deleteById(applicationID);
+    }
     public List<LeaveApplication> getApplicationsByHandlerOrApplicant(String handler, String applicant){
         List<LeaveApplication> leaveApplicationList = new ArrayList<>();
        // leaveApplicationRepository.getLeaveApplication

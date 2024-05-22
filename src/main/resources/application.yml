@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ENC(Ohh5B1rZyl0b/S4PdW8ST3kYQCODmkzrgFYrotE4lT5YnfEd04OJ8duP6TmFgXsIc6Hs1+qoO0MQFhAxmz0YADsYuqW5Wu2Jj0DjU0yRvMoZMKFS/2HSR7UsYZPLNeFgLBT67YOUAwO1ZnOMeZuyrmtPSwujXNW24HANvHaocEM=)
-    username: admin
-    password: ENC(t4jtm/bmRRw67dpe1ou7sr+yjKQf9SF5nmxt+7GiPq0mbRMwK9u33xmXxbybnirZuvkZSLvNrLr10w/tkuNhSQ==)
+    url: jdbc:mysql://localhost:3306/opb
+    username: root
+    password: DEC(1051542172)
   jackson:
     deserialization:
       adjust-dates-to-context-time-zone: false

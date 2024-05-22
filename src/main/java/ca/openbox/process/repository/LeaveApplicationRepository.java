@@ -10,4 +10,5 @@ public interface LeaveApplicationRepository extends Repository<LeaveApplicationD
     LeaveApplicationDO getLeaveApplicationDOById(Integer id);
     List<LeaveApplicationDO> getLeaveApplicationDOByCurrentHandlerOrApplicantOrderBySubmitTimeDesc(String currentHandler, String applicant);
     List<LeaveApplicationDO> getLeaveApplicationDOByStatusIsNotContainingOrderBySubmitTimeDesc(String stauts);
+    void deleteById(Integer id);
 }
