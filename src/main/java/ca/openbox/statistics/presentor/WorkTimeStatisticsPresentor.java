@@ -38,8 +38,7 @@ public class WorkTimeStatisticsPresentor {
             if(resultMap.containsKey(username)){
                 duration = duration.plusMinutes(resultMap.get(username).getMinutes());
             }
-            if(duration.toMinutes()>=300){//5hours on work up minus lunch
-            //Raynold said that he manually added.
+            if(duration.toMinutes()>300){//5hours on work up minus lunch
                 duration= duration.minusMinutes(30);
             }
 
