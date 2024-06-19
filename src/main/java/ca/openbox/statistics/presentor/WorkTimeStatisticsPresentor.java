@@ -35,12 +35,13 @@ public class WorkTimeStatisticsPresentor {
             workTimeStatistic.setUsername(username);
             workTimeStatistic.setUserRealName(shiftList.get(i).getUserRealName());
             Duration duration = Duration.between(shiftList.get(i).getStart(), shiftList.get(i).getEnd());
-            if(resultMap.containsKey(username)){
-                duration = duration.plusMinutes(resultMap.get(username).getMinutes());
-            }
             if(duration.toMinutes()>300){//5hours on work up minus lunch
                 duration= duration.minusMinutes(30);
             }
+            if(resultMap.containsKey(username)){
+                duration = duration.plusMinutes(resultMap.get(username).getMinutes());
+            }
+
 
             workTimeStatistic.setMinutes(duration.toMinutes());
             resultMap.put(username,workTimeStatistic);
