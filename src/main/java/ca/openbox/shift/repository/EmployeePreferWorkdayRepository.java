@@ -18,4 +18,5 @@ public interface EmployeePreferWorkdayRepository extends Repository<EmployeePref
     @Query("DELETE FROM EmployeePreferWorkdayDO w where w.name=:name and MONTH(w.preferDate)=:month")
     public void deleteByNameAndMonth(@Param("name") String name,@Param("month") int month);
     public void save(EmployeePreferWorkdayDO employeePreferWorkdayDO);
+    public List<EmployeePreferWorkdayDO> getEmployeePreferWorkdayDOSByName(String username);
 }

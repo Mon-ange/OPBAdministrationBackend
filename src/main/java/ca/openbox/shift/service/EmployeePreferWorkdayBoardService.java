@@ -24,6 +24,15 @@ public class EmployeePreferWorkdayBoardService {
         EmployeePreferWorkdayBoard board = EmployeePreferWorkdayBoard.getByMonth(employeePreferWorkdayRepository, date.getMonthValue());
         return board.getPreferredEmployeesBydate(date);
     }
+    public List<ZonedDateTime> getPreferredDateByUser(String username){
+        Integer currentMonth = getCurrentMonth();
+        EmployeePreferWorkdayBoard board = EmployeePreferWorkdayBoard.getByMonth(employeePreferWorkdayRepository,currentMonth);
+        return board.getPreferredDateByUser(username);
+    }
+    public List<ZonedDateTime> getPreferredDateByUser(String username, Integer month){
+        EmployeePreferWorkdayBoard board = EmployeePreferWorkdayBoard.getByMonth(employeePreferWorkdayRepository,month);
+        return board.getPreferredDateByUser(username);
+    }
     public void updatePreferWorkday(String username,Integer currentMonth,List<ZonedDateTime> dates){
         EmployeePreferWorkdayBoard board = EmployeePreferWorkdayBoard.getByMonth(employeePreferWorkdayRepository,currentMonth);
         board.updatePreferWorkday(employeePreferWorkdayRepository,username,dates);

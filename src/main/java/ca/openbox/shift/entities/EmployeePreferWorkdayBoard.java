@@ -18,6 +18,14 @@ public class EmployeePreferWorkdayBoard {
     private EmployeePreferWorkdayBoard(List<EmployeePreferWorkday> employeePreferWorkdays,int month){
         this.employeePreferWorkdays = employeePreferWorkdays;
         this.currentMonth = month;
+        System.out.println("Retrieved Work Days from Repository:" + employeePreferWorkdays);
+    }
+    public List<ZonedDateTime> getPreferredDateByUser(String username){
+        List<ZonedDateTime> dateTimeList = new ArrayList<>();
+        for(int i = 0;i<employeePreferWorkdays.size();++i){
+            if(employeePreferWorkdays.get(i).getName().equals(username)) dateTimeList.add(employeePreferWorkdays.get(i).getPreferDate());
+        }
+        return dateTimeList;
     }
 
     public static EmployeePreferWorkdayBoard getByMonth(EmployeePreferWorkdayRepository repository, int month){
@@ -29,6 +37,7 @@ public class EmployeePreferWorkdayBoard {
     public void updatePreferWorkday(EmployeePreferWorkdayRepository repository,String username,List<ZonedDateTime> dates){
         //delete all the workday item including the username
         repository.deleteByNameAndMonth(username,currentMonth);
+        System.out.println("Date from Frontend:" + dates);
         //insert
         for(int i = 0;i<dates.size();++i){
             //how to handle the id of do?
