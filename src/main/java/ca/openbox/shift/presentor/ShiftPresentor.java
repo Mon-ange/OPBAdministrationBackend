@@ -25,6 +25,8 @@ public class ShiftPresentor {
     public Collection<ShiftPresentation> getShiftByStartDateScope(@RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime start,
                                                                   @RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime end){
         System.out.println("zone: " + start.getZone());
+        System.out.println("start: " + start);
+        System.out.println("end:" + end);
         return shiftPresentationRepository.getSchedulePresentationByStartdate(start, end);
     }
 

@@ -3,8 +3,10 @@ package ca.openbox.process.controller;
 import ca.openbox.process.dto.LeaveApplicationDTO;
 import ca.openbox.process.dto.PutLeaveApplicationDTO;
 import ca.openbox.process.entities.LeaveApplication;
+import ca.openbox.process.service.EmailService;
 import ca.openbox.process.service.LeaveApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.ZonedDateTime;
@@ -13,8 +15,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/process")
 public class LeaveApplicationController {
+    @Value("${mail.recipient}")
+    private String recipient;
     @Autowired
     LeaveApplicationService leaveApplicationService;
+    @Autowired
+    EmailService emailService;
     @CrossOrigin(origins = "http://localhost:8081")
     @PutMapping("/application/leave-application")
     public LeaveApplication leaveApplication(@RequestBody PutLeaveApplicationDTO putLeaveApplicationDTO){
@@ -27,6 +33,7 @@ public class LeaveApplicationController {
         leaveApplication.setSubmitTime(ZonedDateTime.now());
         leaveApplication.setCurrentHandler("Raynold");
         leaveApplication.setReason(putLeaveApplicationDTO.getReason());
+        emailService.sendEmail(recipient,"You have one new leave application to review","You have one new leave application to review. Please log on the https://openbox.brimon.me/ to review it.");
         //associated to the business
         return leaveApplicationService.addLeaveApplication(leaveApplication);
 
