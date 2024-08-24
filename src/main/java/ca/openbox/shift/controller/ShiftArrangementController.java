@@ -37,6 +37,7 @@ public class ShiftArrangementController {
             shiftArrangement.setStart(batchCreateShiftByDateDTO.getWorkDate().withFixedOffsetZone().withHour(9).withMinute(30).withSecond(0));
             shiftArrangement.setEnd(batchCreateShiftByDateDTO.getWorkDate().withFixedOffsetZone().withHour(18).withMinute(0).withSecond(0));
             shiftArrangement.setStatus("active");
+            shiftArrangement.setGroup(batchCreateShiftByDateDTO.getGroup());
             shiftArrangementService.addArrangement(shiftArrangement);
         }
     }

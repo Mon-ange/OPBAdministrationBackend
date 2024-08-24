@@ -5,6 +5,7 @@ import ca.openbox.shift.dto.ShiftArrangementDTO;
 import lombok.Data;
 import lombok.Setter;
 
+import java.time.Duration;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 @Data
@@ -14,6 +15,15 @@ public class ShiftArrangement {
     private ZonedDateTime start;
     private ZonedDateTime end;
     private String status;
+    private String group;
+
+    public Integer workMinutes(){
+        Duration duration = Duration.between(getStart(), getEnd());
+        if(duration.toMinutes()>300){//5hours on work up minus lunch
+            duration= duration.minusMinutes(30);
+        }
+        return Integer.valueOf((int) duration.toMinutes());
+    }
     public ShiftArrangementDO getDO(){
         ShiftArrangementDO shiftArrangementDO = new ShiftArrangementDO();
         shiftArrangementDO.setId(id);
@@ -21,6 +31,7 @@ public class ShiftArrangement {
         shiftArrangementDO.setStart(start);
         shiftArrangementDO.setEnd(end);
         shiftArrangementDO.setStatus(status);
+        shiftArrangementDO.setGroup(group);
         return shiftArrangementDO;
     }
 
@@ -31,6 +42,7 @@ public class ShiftArrangement {
         shiftArrangement.start = shiftArrangementDO.getStart();
         shiftArrangement.end = shiftArrangementDO.getEnd();
         shiftArrangement.status = shiftArrangementDO.getStatus();
+        shiftArrangement.group = shiftArrangementDO.getGroup();
         return shiftArrangement;
     }
 
@@ -41,6 +53,7 @@ public class ShiftArrangement {
         shiftArrangement.end = shiftArrangementDTO.getEnd();
         shiftArrangement.username = shiftArrangementDTO.getUsername();
         shiftArrangement.status = shiftArrangementDTO.getStatus();
+        shiftArrangement.group = shiftArrangementDTO.getGroup();
         return shiftArrangement;
     }
 }

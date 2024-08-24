@@ -11,4 +11,5 @@ public interface ShiftArrangementRepository extends Repository<ShiftArrangementD
     ShiftArrangementDO save(ShiftArrangementDO shiftArrangementDO);
     ShiftArrangementDO delete(ShiftArrangementDO shiftArrangementDO);
     List<ShiftArrangementDO> getShiftArrangementDOByUsernameAndStartBetween(String username, ZonedDateTime left, ZonedDateTime right);
+    List<ShiftArrangementDO> getShiftArrangementDOByGroupAndStartBetween(String group, ZonedDateTime start, ZonedDateTime end);
 }

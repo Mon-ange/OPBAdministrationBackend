@@ -21,5 +21,7 @@ public class ShiftArrangementDO {
     private ZonedDateTime start;
     private ZonedDateTime end;
     private String status;
+    @Column(name = "group_name")
+    private String group;
 }
 

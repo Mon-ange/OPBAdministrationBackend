@@ -3,9 +3,14 @@ package ca.openbox.shift.service;
 import ca.openbox.shift.dataobject.ShiftArrangementDO;
 import ca.openbox.shift.entities.ShiftArrangement;
 import ca.openbox.shift.repository.ShiftArrangementRepository;
+import ca.openbox.statistics.service.WorkTimeStatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+
+import java.time.ZonedDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ShiftArrangementService {
@@ -32,5 +37,11 @@ public class ShiftArrangementService {
         return ShiftArrangement.fromDO(modifiedShiftArrangementDO);
     }
 
+    public List<ShiftArrangement> getByGroupAndDate(String group, ZonedDateTime date){
+        ZonedDateTime start = date.withHour(0).withMinute(0).withSecond(0);
+        ZonedDateTime end = date.withHour(23).withMinute(59).withSecond(59);
+        List<ShiftArrangementDO> shiftArrangementDOList = shiftArrangementRepository.getShiftArrangementDOByGroupAndStartBetween(group, start, end);
+        return shiftArrangementDOList.stream().map(o -> ShiftArrangement.fromDO(o)).collect(Collectors.toList());
+    }
 
 }
