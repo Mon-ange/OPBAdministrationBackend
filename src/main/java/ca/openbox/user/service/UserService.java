@@ -55,8 +55,8 @@ public class UserService implements UserDetailsService {
     }
     public User getUserByUsername(String username){
         UserDO userDO = userRepository.getUserDOByUsernameAndActiveIsTrue(username);
+        if (userDO==null) return null;
         User user = User.fromDO(userDO);
         return user;
     }
-
 }

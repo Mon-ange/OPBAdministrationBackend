@@ -20,11 +20,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("user")
 @RestController
 public class UserController {
-
+    @Autowired
+    UserService userService;
     @Autowired
     JwtUtil jwtUtil;
     @Autowired
     AuthenticationManager authenticationManager;
+    @CrossOrigin(origins = "http://localhost:8081", allowCredentials="true", allowedHeaders = {"*"})
+    @GetMapping("/check_validation")
+    public boolean checkUserValidation(@RequestParam String username){
+        User user = userService.getUserByUsername(username);
+        if(user==null)return false;
+        return true;
+    }
     @CrossOrigin(origins = "http://localhost:8081", allowCredentials="true", allowedHeaders = {"*"})
     @PostMapping("/login")
     public Object login(@RequestBody LoginDTO loginDTO, HttpServletRequest request){
@@ -47,8 +55,7 @@ public class UserController {
         return userDTO;
     }
 
-    @Autowired
-    UserService userService;
+
     @Autowired
     Cryptor cryptor;
     @CrossOrigin(origins = "http://localhost:8081",methods = {RequestMethod.POST})
