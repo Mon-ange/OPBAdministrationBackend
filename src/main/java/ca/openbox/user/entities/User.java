@@ -15,6 +15,7 @@ import java.util.Date;
 public class User {
 //Domain Entity
     private String username;
+    private String verificationCode;
     private String name;
     private String password;
     private Date birthdate;

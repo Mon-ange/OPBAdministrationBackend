@@ -1,8 +1,10 @@
 package ca.openbox.user.service;
 
 import ca.openbox.infrastructure.security.Cryptor;
+import ca.openbox.user.dataobject.EmailVerificationDO;
 import ca.openbox.user.dataobject.UserDO;
 import ca.openbox.user.entities.User;
+import ca.openbox.user.repository.EmailVerificationRepository;
 import ca.openbox.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +17,8 @@ import org.springframework.stereotype.Service;
 public class UserService implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    EmailVerificationRepository emailVerificationRepository;
     @Autowired
     PasswordEncoder passwordEncoder;
     @Autowired
@@ -31,7 +35,7 @@ public class UserService implements UserDetailsService {
         userDO.setPassword(passwordEncoder.encode(userDO.getPassword()));
         userDO.setSinno(cryptor.encrypt(userDO.getSinno()));
         userRepository.save(userDO);
-        return user;
+        return User.fromDO(userDO);
     }
     public void updateSIN(String username,String sinno) throws Exception{
         User user = getUserByUsername(username);
@@ -58,5 +62,22 @@ public class UserService implements UserDetailsService {
         if (userDO==null) return null;
         User user = User.fromDO(userDO);
         return user;
+    }
+
+    public String generateCode() {
+        // 生成简单的6位数字验证码
+        return String.valueOf((int) ((Math.random() * 9 + 1) * 100000));
+    }
+    public void saveCode(String email, String code){
+        EmailVerificationDO emailVerificationDO = new EmailVerificationDO();
+        emailVerificationDO.setEmail(email);
+        emailVerificationDO.setVerificationCode(code);
+        emailVerificationRepository.save(emailVerificationDO);
+    }
+    public boolean verifyCode(String email,String code){
+        EmailVerificationDO emailVerificationDO = emailVerificationRepository.getEmailVerificationDOByEmail(email);
+        UserDO userDO = userRepository.getUserDOByEmail(email);
+        if(userDO!=null) return false;
+        return emailVerificationDO.getVerificationCode().equals(code);
     }
 }

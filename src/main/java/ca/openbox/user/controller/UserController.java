@@ -1,7 +1,9 @@
 package ca.openbox.user.controller;
 
+import ca.openbox.infrastructure.email.service.WebhookEmailService;
 import ca.openbox.infrastructure.jwt.JwtUtil;
 import ca.openbox.infrastructure.security.Cryptor;
+import ca.openbox.process.service.EmailService;
 import ca.openbox.user.dataobject.UserDO;
 import ca.openbox.user.dto.LoginDTO;
 import ca.openbox.user.dto.RegisterDTO;
@@ -22,6 +24,8 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     UserService userService;
+    @Autowired
+    WebhookEmailService emailService;
     @Autowired
     JwtUtil jwtUtil;
     @Autowired
@@ -59,21 +63,38 @@ public class UserController {
     @Autowired
     Cryptor cryptor;
     @CrossOrigin(origins = "http://localhost:8081",methods = {RequestMethod.POST})
+    @PostMapping("/send_code")
+    public void sendCode(@RequestParam String email) throws Exception{
+        //Click the "send code"
+        String code = userService.generateCode();
+        emailService.sendEmail(email,"Verification Code for registration","Use this code to finish setting up your account:"+code);
+        userService.saveCode(email,code);
+    }
+    @CrossOrigin(origins = "http://localhost:8081",methods = {RequestMethod.POST})
     @PostMapping("/register")
-    public Object register(@RequestBody RegisterDTO registerDTO) throws Exception{
-        User user = new User();
-        user.setUsername(registerDTO.getUsername());
-        user.setName(registerDTO.getName());
-        user.setPassword(registerDTO.getPassword());
-        user.setBirthdate(registerDTO.getBirthdate());
-        user.setRoles(registerDTO.getRoles());
-        user.setLegalname(registerDTO.getLegalname());
-        user.setSinno(registerDTO.getSinno());
-        user.setAddress(registerDTO.getAddress());
-        user.setPhoneNumber(registerDTO.getPhoneNumber());
-        user.setEmail(registerDTO.getEmail());
-        //should set the active?
-        return userService.register(user);
+    public Object register(@RequestBody RegisterDTO registerDTO,@RequestParam String code) throws Exception{
+        //Click the "register now"
+        System.out.println(registerDTO);
+        System.out.println("code"+code);
+        boolean isVerified = userService.verifyCode(registerDTO.getEmail(), code);
+        if(isVerified){
+            User user = new User();
+            user.setUsername(registerDTO.getUsername());
+            user.setName(registerDTO.getName());
+            user.setPassword(registerDTO.getPassword());
+            user.setBirthdate(registerDTO.getBirthdate());
+            user.setRoles("tester");
+            user.setLegalname(registerDTO.getLegalname());
+            user.setSinno(registerDTO.getSinno());
+            user.setAddress(registerDTO.getAddress());
+            user.setPhoneNumber(registerDTO.getPhoneNumber());
+            user.setEmail(registerDTO.getEmail());
+            user.setActive(1);
+            return userService.register(user);
+        }
+        else{
+            throw new IllegalAccessException();
+        }
     }
     @CrossOrigin(origins = "http://localhost:8081",methods = {RequestMethod.POST})
     @PostMapping("{username}/updatesinno")

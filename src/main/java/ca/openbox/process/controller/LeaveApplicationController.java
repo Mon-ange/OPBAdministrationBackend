@@ -1,5 +1,6 @@
 package ca.openbox.process.controller;
 
+import ca.openbox.infrastructure.email.service.WebhookEmailService;
 import ca.openbox.process.dto.LeaveApplicationDTO;
 import ca.openbox.process.dto.PutLeaveApplicationDTO;
 import ca.openbox.process.entities.LeaveApplication;
@@ -20,10 +21,10 @@ public class LeaveApplicationController {
     @Autowired
     LeaveApplicationService leaveApplicationService;
     @Autowired
-    EmailService emailService;
+    WebhookEmailService emailService;
     @CrossOrigin(origins = "http://localhost:8081")
     @PutMapping("/application/leave-application")
-    public LeaveApplication leaveApplication(@RequestBody PutLeaveApplicationDTO putLeaveApplicationDTO){
+    public LeaveApplication leaveApplication(@RequestBody PutLeaveApplicationDTO putLeaveApplicationDTO) throws Exception {
         LeaveApplication leaveApplication = new LeaveApplication();
         leaveApplication.setApplicant(putLeaveApplicationDTO.getApplicant());
         leaveApplication.setLeaveType(putLeaveApplicationDTO.getLeaveType());
