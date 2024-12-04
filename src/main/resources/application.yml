@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/opb
     username: root
-    password: ENC(RVjDIgu1guwMpN97kqWT9A8llGLiQBJdvSdLLIWAnB97wPZRmEjP4Per6YWA3VRK)
+    password: ENC(EkUQy2uoVnGhpIE8cF8c3TBQrdIYfKodF2hUgwkefygJ8sdbV0ltXMG4w+AiK3VV)
   jackson:
     deserialization:
       adjust-dates-to-context-time-zone: false

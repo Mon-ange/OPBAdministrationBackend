@@ -36,7 +36,7 @@ public class LeaveApplicationService {
     public List<LeaveApplication> getApplicationsByHandlerOrApplicant(String handler, String applicant){
         List<LeaveApplication> leaveApplicationList = new ArrayList<>();
        // leaveApplicationRepository.getLeaveApplication
-        List<LeaveApplicationDO> leaveApplicationDOList = leaveApplicationRepository.getLeaveApplicationDOByCurrentHandlerOrApplicantOrderBySubmitTimeDesc(handler,applicant);
+        List<LeaveApplicationDO> leaveApplicationDOList = leaveApplicationRepository.getLeaveApplicationDOByCurrentHandlerContainingOrApplicantOrderBySubmitTimeDesc(handler,applicant);
         for(int i = 0; i<leaveApplicationDOList.size();++i){
             leaveApplicationList.add(LeaveApplication.fromDO(leaveApplicationDOList.get(i)));
         }

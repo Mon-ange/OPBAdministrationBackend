@@ -32,7 +32,7 @@ public class LeaveApplicationController {
         leaveApplication.setEnd(putLeaveApplicationDTO.getEnd());
         leaveApplication.setStatus("pending");
         leaveApplication.setSubmitTime(ZonedDateTime.now());
-        leaveApplication.setCurrentHandler("Raynold");
+        leaveApplication.setCurrentHandler("[Raynold,Agnes]");
         leaveApplication.setReason(putLeaveApplicationDTO.getReason());
         emailService.sendEmail(recipient,"You have one new leave application to review","You have one new leave application to review. Please log on the https://openbox.brimon.me/ to review it.");
         //associated to the business
