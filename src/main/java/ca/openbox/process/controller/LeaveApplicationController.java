@@ -6,6 +6,7 @@ import ca.openbox.process.dto.PutLeaveApplicationDTO;
 import ca.openbox.process.entities.LeaveApplication;
 import ca.openbox.process.service.EmailService;
 import ca.openbox.process.service.LeaveApplicationService;
+import ca.openbox.process.service.components.ApplicationStatusChangeMessageQueue;
 import ca.openbox.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,10 +20,6 @@ import java.util.List;
 public class LeaveApplicationController {
     @Autowired
     LeaveApplicationService leaveApplicationService;
-    @Autowired
-    WebhookEmailService emailService;
-    @Autowired
-    UserRepository userRepository;
     @CrossOrigin(origins = "http://localhost:8081")
     @PutMapping("/application/leave-application")
     public LeaveApplication leaveApplication(@RequestBody PutLeaveApplicationDTO putLeaveApplicationDTO) throws Exception {
@@ -35,13 +32,9 @@ public class LeaveApplicationController {
         leaveApplication.setSubmitTime(ZonedDateTime.now());
         leaveApplication.setCurrentHandler("raynold,agnes");
         leaveApplication.setReason(putLeaveApplicationDTO.getReason());
-        String[] handlers = leaveApplication.getCurrentHandler().split(",");
-        for(String handler:handlers){
-            emailService.sendEmail(userRepository.getUserDOByUsernameAndActiveIsTrue(handler).getEmail(), "You have one new leave application to review","You have one new leave application to review. Please log on the https://openbox.brimon.me/ to review it.");
-            Thread.sleep(500);//Fix with message queue
-        }
-        return leaveApplicationService.addLeaveApplication(leaveApplication);
-
+        LeaveApplication savedApplication = leaveApplicationService.addLeaveApplication(leaveApplication);
+        ApplicationStatusChangeMessageQueue.put(savedApplication);
+        return savedApplication;
     }
 
     @CrossOrigin(origins = "http://localhost:8081",methods = {RequestMethod.POST})
