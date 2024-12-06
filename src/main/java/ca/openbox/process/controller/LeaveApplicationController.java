@@ -58,11 +58,13 @@ public class LeaveApplicationController {
     @GetMapping("/application")
     public List<LeaveApplication> getApplicationsByApplicant(@RequestParam(value = "handler",required = false) String handler,
                                                              @RequestParam(value = "applicant",required = false) String applicant){
-        return leaveApplicationService.getApplicationsByHandlerOrApplicant(handler,applicant);
-    }
-    @CrossOrigin(origins = "http://localhost:8081")
-    @GetMapping("/application/getAllApplications")
-    public List<LeaveApplication> getAllApplications(){
+        if(handler != null && !handler.equals("")){
+            System.out.println(handler);
+            return leaveApplicationService.getApplicationsByHandler(handler);
+        }
+        if(applicant !=null && !applicant.equals("")){
+            return leaveApplicationService.getApplicationsByApplicant(applicant);
+        }
         return leaveApplicationService.getAllApplications();
     }
 

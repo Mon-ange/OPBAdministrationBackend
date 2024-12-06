@@ -33,10 +33,19 @@ public class LeaveApplicationService {
     public void deleteApplication(Integer applicationID){
         leaveApplicationRepository.deleteById(applicationID);
     }
-    public List<LeaveApplication> getApplicationsByHandlerOrApplicant(String handler, String applicant){
+    public List<LeaveApplication> getApplicationsByHandler(String handler){
         List<LeaveApplication> leaveApplicationList = new ArrayList<>();
        // leaveApplicationRepository.getLeaveApplication
-        List<LeaveApplicationDO> leaveApplicationDOList = leaveApplicationRepository.getLeaveApplicationDOByCurrentHandlerContainingOrApplicantOrderBySubmitTimeDesc(handler,applicant);
+        List<LeaveApplicationDO> leaveApplicationDOList = leaveApplicationRepository.getLeaveApplicationDOByCurrentHandlerContainingOrderBySubmitTimeDesc(handler);
+        for(int i = 0; i<leaveApplicationDOList.size();++i){
+            leaveApplicationList.add(LeaveApplication.fromDO(leaveApplicationDOList.get(i)));
+        }
+        return leaveApplicationList;
+    }
+    public List<LeaveApplication> getApplicationsByApplicant(String applicant){
+        List<LeaveApplication> leaveApplicationList = new ArrayList<>();
+        // leaveApplicationRepository.getLeaveApplication
+        List<LeaveApplicationDO> leaveApplicationDOList = leaveApplicationRepository.getLeaveApplicationDOByApplicantOrderBySubmitTimeDesc(applicant);
         for(int i = 0; i<leaveApplicationDOList.size();++i){
             leaveApplicationList.add(LeaveApplication.fromDO(leaveApplicationDOList.get(i)));
         }
