@@ -1,6 +1,7 @@
 package ca.openbox.user.dataobject;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -28,4 +29,7 @@ public class UserDO {
     //private String personalDocumentsPath;
     //cause of list
     private Integer active;
+    //new
+    @Column(name = "group_name")
+    private String groupName;
 }

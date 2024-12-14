@@ -8,4 +8,6 @@ public class PutAnnouncementDTO {
     private String title;
     private String content;
     private ZonedDateTime expiryDate;
+    //new
+    private String groupName;
 }

@@ -31,12 +31,16 @@ public class AnnouncementController {
         announcement.setPublisher(postAnnouncementDTO.getPublisher());
         announcement.setExpiryDate(postAnnouncementDTO.getExpiryDate());
         announcement.setCreatedTime(ZonedDateTime.now());
+        announcement.setGroupName(postAnnouncementDTO.getGroupName());
         return announcementService.addAnnouncement(announcement);
     }
     @CrossOrigin(origins = "http://localhost:8081")
     @GetMapping
-    public List<Announcement> getAnnouncementAfter(@RequestParam("expireAfter") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime expiryDate){
-        return announcementService.getAnnouncementAfter(expiryDate);
+    public List<Announcement> getAnnouncementAfter(
+            @RequestParam("expireAfter") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime expiryDate,
+            @RequestParam("username") String username) {
+
+        return announcementService.getAnnouncementAfter(expiryDate, username);
     }
     @CrossOrigin(origins = "http://localhost:8081")
     @GetMapping("/{announcementId}")

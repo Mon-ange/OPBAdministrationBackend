@@ -12,6 +12,7 @@ public class Announcement {
     private String publisher;
     private ZonedDateTime createdTime;
     private ZonedDateTime expiryDate;
+    private String groupName;
     public AnnouncementDO toDO(){
         AnnouncementDO announcementDO = new AnnouncementDO();
         announcementDO.setId(id);
@@ -20,6 +21,7 @@ public class Announcement {
         announcementDO.setPublisher(publisher);
         announcementDO.setCreatedTime(createdTime);
         announcementDO.setExpiryDate(expiryDate);
+        announcementDO.setGroupName(groupName);
         return announcementDO;
     }
     static public Announcement fromDO(AnnouncementDO announcementDO){
@@ -30,6 +32,7 @@ public class Announcement {
         announcement.expiryDate = announcementDO.getExpiryDate();
         announcement.publisher = announcementDO.getPublisher();
         announcement.title = announcementDO.getTitle();
+        announcement.groupName = announcementDO.getGroupName();
         return announcement;
     }
 
