@@ -28,7 +28,7 @@ public class User {
     private String personalDocumentsPath;
     private File personalDocuments;
     private Integer active;
-    //new
+    //need to input the group name for each user in the database by hand
     private String groupName = null;
 
     public UserDO getDO(){

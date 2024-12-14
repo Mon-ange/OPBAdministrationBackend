@@ -31,6 +31,7 @@ public class AnnouncementService {
         //new
         String groupName=userRepository.findGroupNameByUsername(username);
         if (Objects.equals(groupName, "manager")){
+            // add all announcements if groupName is manager.
             for (int i = 0;i<announcementListDO.size();++i){
                 Announcement announcement = Announcement.fromDO(announcementListDO.get(i));
                 announcements.add(announcement);
@@ -38,7 +39,8 @@ public class AnnouncementService {
         }else{
             for (int i = 0;i<announcementListDO.size();++i){
                 Announcement announcement = Announcement.fromDO(announcementListDO.get(i));
-                if (announcement.getGroupName().equals(groupName)|| announcement.getGroupName().equals("public")) { // 只添加groupName匹配的公告
+                if (announcement.getGroupName().equals(groupName)|| announcement.getGroupName().equals("public")) {
+                    // only add announcements that match the groupName.
                     announcements.add(announcement);
                 }
 
