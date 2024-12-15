@@ -4,6 +4,7 @@ import ca.openbox.shift.dto.BatchCreateShiftByDateDTO;
 import ca.openbox.shift.dto.ShiftArrangementDTO;
 import ca.openbox.shift.entities.ShiftArrangement;
 import ca.openbox.shift.service.ShiftArrangementService;
+import ca.openbox.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -20,6 +21,9 @@ public class ShiftArrangementController {
 
     @Autowired
     ShiftArrangementService shiftArrangementService;
+    @Autowired
+    UserRepository userRepository;
+
     @PutMapping
     public ShiftArrangement putArrangement(@RequestBody ShiftArrangementDTO shiftArrangementDTO){
         System.out.println(shiftArrangementDTO.toString());
@@ -37,7 +41,8 @@ public class ShiftArrangementController {
             shiftArrangement.setStart(batchCreateShiftByDateDTO.getWorkDate().withFixedOffsetZone().withHour(9).withMinute(30).withSecond(0));
             shiftArrangement.setEnd(batchCreateShiftByDateDTO.getWorkDate().withFixedOffsetZone().withHour(18).withMinute(0).withSecond(0));
             shiftArrangement.setStatus("active");
-            shiftArrangement.setGroup(batchCreateShiftByDateDTO.getGroup());
+            //TODO: for now just use the current group name from the user table, ignore the 'group' parameter from the frontend. Maybe change in the future
+            shiftArrangement.setGroup(userRepository.findGroupNameByUsername(batchCreateShiftByDateDTO.getUsernames().get(i)));
             shiftArrangementService.addArrangement(shiftArrangement);
         }
     }

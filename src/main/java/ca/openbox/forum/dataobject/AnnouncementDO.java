@@ -16,4 +16,6 @@ public class AnnouncementDO {
     private String publisher;
     private ZonedDateTime createdTime;
     private ZonedDateTime expiryDate;
+    //new
+    private String groupName;
 }

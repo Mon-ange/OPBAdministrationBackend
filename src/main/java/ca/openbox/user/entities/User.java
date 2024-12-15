@@ -28,6 +28,8 @@ public class User {
     private String personalDocumentsPath;
     private File personalDocuments;
     private Integer active;
+    //need to input the group name for each user in the database by hand
+    private String groupName = null;
 
     public UserDO getDO(){
         UserDO userDO = new UserDO();
@@ -44,6 +46,7 @@ public class User {
         userDO.setActive(active);
         //userDO.setPersonalDocumentsPath(personalDocumentsPath);
         //wait for list
+        userDO.setGroupName(groupName);
 
         return userDO;
     }
@@ -61,6 +64,7 @@ public class User {
         user.email = userDO.getEmail();
         user.active = userDO.getActive();
         //user.personalDocumentsPath = userDO.getPersonalDocumentsPath();
+        user.groupName = userDO.getGroupName();
         return user;
     }
 

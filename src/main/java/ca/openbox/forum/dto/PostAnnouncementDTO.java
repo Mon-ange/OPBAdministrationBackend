@@ -9,4 +9,6 @@ public class PostAnnouncementDTO {
     private String content;
     private String publisher;
     private ZonedDateTime expiryDate;
+    //new
+    private String groupName;
 }
