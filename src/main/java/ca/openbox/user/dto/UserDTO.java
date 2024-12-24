@@ -2,6 +2,7 @@ package ca.openbox.user.dto;
 
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -14,7 +15,7 @@ public class UserDTO {
     //shouldn't have password
     //private String password;
     private String roles;
-    private Date birthdate;
+    private LocalDate birthdate;
     private String JSessionID;
     private String legalname;
     private String address;
@@ -25,5 +26,6 @@ public class UserDTO {
     private String token;
     //And mustn't need personaldocuments.
     private Integer active;
+    private String groupName;
 
 }

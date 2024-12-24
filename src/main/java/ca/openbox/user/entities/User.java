@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -18,7 +19,7 @@ public class User {
     private String verificationCode;
     private String name;
     private String password;
-    private Date birthdate;
+    private LocalDate birthdate;
     private String roles;
     private String legalname;
     private String sinno;
@@ -29,7 +30,7 @@ public class User {
     private File personalDocuments;
     private Integer active;
     //need to input the group name for each user in the database by hand
-    private String groupName = null;
+    private String groupName;
 
     public UserDO getDO(){
         UserDO userDO = new UserDO();
