@@ -42,7 +42,7 @@ public class ShiftArrangementController {
             shiftArrangement.setEnd(batchCreateShiftByDateDTO.getWorkDate().withFixedOffsetZone().withHour(18).withMinute(0).withSecond(0));
             shiftArrangement.setStatus("active");
             //TODO: for now just use the current group name from the user table, ignore the 'group' parameter from the frontend. Maybe change in the future
-            shiftArrangement.setGroup(userRepository.findGroupNameByUsername(batchCreateShiftByDateDTO.getUsernames().get(i)));
+            shiftArrangement.setGroup(userRepository.getUserDOByUsernameAndActiveIsTrue(shiftArrangement.getUsername()).getGroupName());
             shiftArrangementService.addArrangement(shiftArrangement);
         }
     }

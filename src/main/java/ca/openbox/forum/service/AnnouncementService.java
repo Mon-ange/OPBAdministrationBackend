@@ -29,7 +29,7 @@ public class AnnouncementService {
         List<Announcement> announcements = new ArrayList<>();
         announcementListDO = announcementRepository.getAnnouncementDOByExpiryDateAfterOrderByCreatedTimeDesc(expiryDate);
         //new
-        String groupName=userRepository.findGroupNameByUsername(username);
+        String groupName=userRepository.getUserDOByUsernameAndActiveIsTrue(username).getGroupName();
         if (Objects.equals(groupName, "manager")){
             // add all announcements if groupName is manager.
             for (int i = 0;i<announcementListDO.size();++i){
