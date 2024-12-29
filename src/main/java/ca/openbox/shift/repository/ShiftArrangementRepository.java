@@ -10,6 +10,7 @@ import java.util.List;
 public interface ShiftArrangementRepository extends Repository<ShiftArrangementDO, Integer> {
     ShiftArrangementDO save(ShiftArrangementDO shiftArrangementDO);
     ShiftArrangementDO delete(ShiftArrangementDO shiftArrangementDO);
+    ShiftArrangementDO findById(Integer id);
     List<ShiftArrangementDO> getShiftArrangementDOByUsernameAndStartBetween(String username, ZonedDateTime left, ZonedDateTime right);
     List<ShiftArrangementDO> getShiftArrangementDOByGroupAndStartBetween(String group, ZonedDateTime start, ZonedDateTime end);
 }
