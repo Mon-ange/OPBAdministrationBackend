@@ -1,4 +1,4 @@
-package ca.openbox.infrastructure.varaibles.entity;
+package ca.openbox.infrastructure.variables.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
