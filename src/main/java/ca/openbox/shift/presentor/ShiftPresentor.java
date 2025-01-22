@@ -2,6 +2,9 @@ package ca.openbox.shift.presentor;
 
 import ca.openbox.shift.presentation.ShiftPresentation;
 import ca.openbox.shift.repository.ShiftPresentationRepository;
+import ca.openbox.user.dataobject.UserDO;
+import ca.openbox.user.entities.User;
+import ca.openbox.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,6 +23,9 @@ public class ShiftPresentor {
     @Autowired
     ShiftPresentationRepository shiftPresentationRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     @CrossOrigin(origins = "http://localhost:8081")
     @GetMapping("/getShiftByStartDateScope")
     public Collection<ShiftPresentation> getShiftByStartDateScope(@RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime start,
@@ -37,6 +43,27 @@ public class ShiftPresentor {
                                                                     @RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime end){
         return shiftPresentationRepository.getSchedulePresentationByUsernameAndStartdate(username,start,end);
     }
+
+    @CrossOrigin(origins = "http://localhost:8081")
+    @GetMapping("/{username}/getShiftByStartDateScopeAndGroup")
+    //only use userName because the frontend don't know the group of the user
+    public Collection<ShiftPresentation> getShiftByStartDateScopeAndGroup(@PathVariable String username,
+                                                                    @RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime start,
+                                                                    @RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime end
+                                                                    ){
+        UserDO userDO = userRepository.getUserDOByUsernameAndActiveIsTrue(username);
+        String groupName = userDO.getGroupName();
+        if(groupName.equals("manager")){
+            return shiftPresentationRepository.getSchedulePresentationByStartdate(start, end);
+        }
+        else{
+            //shiftPresentationRepository.getByGroupAndTimeScope does not work in the way it looks like, so don't use it. Use this "real" version
+            return shiftPresentationRepository.getByGroupAndTimeScopeReal(groupName,start,end);
+
+        }
+
+    }
+
 
     public List<ShiftPresentation> getByGroupAndTimeScope(String groupName,
                                                           ZonedDateTime start,

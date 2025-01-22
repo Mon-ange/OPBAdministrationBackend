@@ -31,4 +31,12 @@ public interface ShiftPresentationRepository extends JpaRepository<ShiftPresenta
             "and :groupName=:groupName",
             nativeQuery = true)
     public List<ShiftPresentation> getByGroupAndTimeScope(String groupName, ZonedDateTime start, ZonedDateTime end);
+
+    @Query( value = "select id, opb_user.username as username, start as date, name as user_real_name, start, end from opb_shift_arrangement\n"+
+            "left join opb_user on opb_shift_arrangement.username = opb_user.username\n" +
+            "where (start>=:start and start <=:end) \n" +
+            "and opb_shift_arrangement.status in (\"active\",\"cancelled\")"+
+            "and opb_shift_arrangement.group_name=:groupName",
+            nativeQuery = true)
+    public Collection<ShiftPresentation> getByGroupAndTimeScopeReal(String groupName, ZonedDateTime start, ZonedDateTime end);
 }
