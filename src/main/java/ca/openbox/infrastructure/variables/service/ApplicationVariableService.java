@@ -1,7 +1,7 @@
-package ca.openbox.infrastructure.varaibles.service;
+package ca.openbox.infrastructure.variables.service;
 
-import ca.openbox.infrastructure.varaibles.entity.ApplicationVariable;
-import ca.openbox.infrastructure.varaibles.repository.ApplicationVariablesRepository;
+import ca.openbox.infrastructure.variables.entity.ApplicationVariable;
+import ca.openbox.infrastructure.variables.repository.ApplicationVariablesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

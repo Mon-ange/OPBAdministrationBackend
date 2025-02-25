@@ -1,19 +1,14 @@
 package ca.openbox.shift.service;
 
-import ca.openbox.infrastructure.varaibles.repository.ApplicationVariablesRepository;
-import ca.openbox.infrastructure.varaibles.service.ApplicationVariableService;
-import ca.openbox.shift.dataobject.EmployeePreferWorkdayDO;
-import ca.openbox.shift.entities.EmployeePreferWorkday;
+import ca.openbox.infrastructure.variables.service.ApplicationVariableService;
 import ca.openbox.shift.entities.EmployeePreferWorkdayBoard;
 import ca.openbox.shift.repository.EmployeePreferWorkdayRepository;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
+
 @Service
 public class EmployeePreferWorkdayBoardService {
     @Autowired

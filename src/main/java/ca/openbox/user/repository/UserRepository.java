@@ -10,8 +10,4 @@ public interface UserRepository extends Repository<UserDO,String> {
     UserDO getUserDOByUsernameAndActiveIsTrue(String username);
     UserDO save(UserDO userDO);
     UserDO getUserDOByEmail(String email);
-    @Query("SELECT u.groupName FROM UserDO u WHERE u.username = :username")
-    String findGroupNameByUsername(@Param("username") String username);
-
-
 }

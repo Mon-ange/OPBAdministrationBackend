@@ -21,4 +21,8 @@ public class KPIController {
     public KPI getKPIByDateAndGroup(@RequestParam String group,@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd")Date date){
         return kpiApplication.ofDate(group, date);
     }
+    @GetMapping("/biweek")
+    public KPI getBiweekKPIByGroup(@RequestParam String group){
+        return kpiApplication.ofBiweek(group);
+    }
 }

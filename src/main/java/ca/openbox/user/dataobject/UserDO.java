@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
-import java.io.File;
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -19,7 +19,7 @@ public class UserDO {
     private String username;
     private String name;
     private String password;
-    private Date birthdate;
+    private LocalDate birthdate;
     private String roles;
     private String legalname;
     private String sinno;
@@ -30,6 +30,5 @@ public class UserDO {
     //cause of list
     private Integer active;
     //new
-    @Column(name = "group_name")
     private String groupName;
 }

@@ -2,6 +2,7 @@ package ca.openbox.user.dto;
 
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -9,7 +10,7 @@ public class RegisterDTO {
     private String username;
     private String name;
     private String password;
-    private Date birthdate;
+    private LocalDate birthdate;
     //private String roles;
     private String legalname;
     private String sinno;

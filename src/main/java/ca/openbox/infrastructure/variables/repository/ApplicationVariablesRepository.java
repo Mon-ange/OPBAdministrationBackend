@@ -1,6 +1,6 @@
-package ca.openbox.infrastructure.varaibles.repository;
+package ca.openbox.infrastructure.variables.repository;
 
-import ca.openbox.infrastructure.varaibles.entity.ApplicationVariable;
+import ca.openbox.infrastructure.variables.entity.ApplicationVariable;
 import org.springframework.data.repository.Repository;
 
 
