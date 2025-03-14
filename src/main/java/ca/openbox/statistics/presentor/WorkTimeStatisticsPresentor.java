@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,20 +29,41 @@ public class WorkTimeStatisticsPresentor {
         List<WorkTimeStatistic> resultList = new ArrayList<>();
         HashMap<String, WorkTimeStatistic> resultMap = new HashMap<>();
         List<ShiftPresentation> shiftList = shiftPresentor.getByGroupAndTimeScope(groupname, start, end);
+
+        ZoneId vancouverZone = ZoneId.of("America/Vancouver");
+
         for (int i = 0; i < shiftList.size(); ++i) {
             WorkTimeStatistic workTimeStatistic = new WorkTimeStatistic();
             String username = shiftList.get(i).getUsername();
 
             workTimeStatistic.setUsername(username);
             workTimeStatistic.setUserRealName(shiftList.get(i).getUserRealName());
-            Duration duration = Duration.between(shiftList.get(i).getStart(), shiftList.get(i).getEnd());
+
+            ZonedDateTime shiftStart = shiftList.get(i).getStart();
+            ZonedDateTime shiftEnd = shiftList.get(i).getEnd();
+
+            ZonedDateTime shiftStartYVR = shiftStart.withZoneSameInstant(vancouverZone);
+            ZonedDateTime shiftEndYVR = shiftEnd.withZoneSameInstant(vancouverZone);
+
+            Duration duration = Duration.between(shiftStart, shiftEnd);
+
+            ZonedDateTime lunchStart = shiftStartYVR
+                    .toLocalDate()
+                    .atTime(12, 0)
+                    .atZone(vancouverZone);
+            ZonedDateTime lunchEnd = lunchStart.plusMinutes(30);
+
             if(duration.toMinutes()>300){//5hours on work up minus lunch
                 duration= duration.minusMinutes(30);
             }
+            else if(shiftStartYVR.isBefore(lunchEnd)
+                    && shiftEndYVR.isAfter(lunchStart)){//coversLunchBreak
+                duration = duration.minusMinutes(30);
+            }
+
             if(resultMap.containsKey(username)){
                 duration = duration.plusMinutes(resultMap.get(username).getMinutes());
             }
-
 
             workTimeStatistic.setMinutes(duration.toMinutes());
             resultMap.put(username,workTimeStatistic);
