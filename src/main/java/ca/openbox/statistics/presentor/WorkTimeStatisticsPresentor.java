@@ -22,7 +22,7 @@ public class WorkTimeStatisticsPresentor {
     ShiftPresentationRepository shiftPresentationRepository;
 
     @CrossOrigin(origins = "http://localhost:8081")
-    @GetMapping("")
+    @GetMapping
     public List<WorkTimeStatistic> getByTimeScope(@RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime start,
                                                           @RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime end) {
         //Calculate the data from ShiftPresentations retrieved by ShiftPresentor
