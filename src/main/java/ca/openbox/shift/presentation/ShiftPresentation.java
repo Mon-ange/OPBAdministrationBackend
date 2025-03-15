@@ -16,4 +16,6 @@ public class ShiftPresentation {
 
     private ZonedDateTime start;
     private ZonedDateTime end;
+
+    private String groupName;
 }

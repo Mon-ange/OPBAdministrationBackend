@@ -2,6 +2,7 @@ package ca.openbox.statistics.presentor;
 
 import ca.openbox.shift.presentation.ShiftPresentation;
 import ca.openbox.shift.presentor.ShiftPresentor;
+import ca.openbox.shift.repository.ShiftPresentationRepository;
 import ca.openbox.statistics.presentation.WorkTimeStatistic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,17 +19,16 @@ import java.util.List;
 @RequestMapping("/presentor/statistic/work-time-statistic")
 public class WorkTimeStatisticsPresentor {
     @Autowired
-    ShiftPresentor shiftPresentor;
+    ShiftPresentationRepository shiftPresentationRepository;
 
     @CrossOrigin(origins = "http://localhost:8081")
-    @GetMapping("/group/{groupname}")
-    public List<WorkTimeStatistic> getByGroupAndTimeScope(@PathVariable String groupname,
-                                                          @RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime start,
+    @GetMapping("")
+    public List<WorkTimeStatistic> getByTimeScope(@RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime start,
                                                           @RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime end) {
         //Calculate the data from ShiftPresentations retrieved by ShiftPresentor
         List<WorkTimeStatistic> resultList = new ArrayList<>();
         HashMap<String, WorkTimeStatistic> resultMap = new HashMap<>();
-        List<ShiftPresentation> shiftList = shiftPresentor.getByGroupAndTimeScope(groupname, start, end);
+        List<ShiftPresentation> shiftList = shiftPresentationRepository.getByTimeScope(start, end);
 
         ZoneId vancouverZone = ZoneId.of("America/Vancouver");
 
@@ -57,7 +57,8 @@ public class WorkTimeStatisticsPresentor {
                 duration= duration.minusMinutes(30);
             }
             else if(shiftStartYVR.isBefore(lunchEnd)
-                    && shiftEndYVR.isAfter(lunchStart)){//coversLunchBreak
+                    && shiftEndYVR.isAfter(lunchStart)
+                    && shiftList.get(i).getGroupName().equalsIgnoreCase("surrey")){//coversLunchBreak
                 duration = duration.minusMinutes(30);
             }
 

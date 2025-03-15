@@ -33,7 +33,7 @@ public class ShiftPresentor {
         System.out.println("zone: " + start.getZone());
         System.out.println("start: " + start);
         System.out.println("end:" + end);
-        return shiftPresentationRepository.getSchedulePresentationByStartdate(start, end);
+        return shiftPresentationRepository.getByTimeScope(start, end);
     }
 
     @CrossOrigin(origins = "http://localhost:8081")
@@ -54,22 +54,10 @@ public class ShiftPresentor {
         UserDO userDO = userRepository.getUserDOByUsernameAndActiveIsTrue(username);
         String groupName = userDO.getGroupName();
         if(groupName.equals("manager")){
-            return shiftPresentationRepository.getSchedulePresentationByStartdate(start, end);
+            return shiftPresentationRepository.getByTimeScope(start, end);
         }
         else{
-            //shiftPresentationRepository.getByGroupAndTimeScope does not work in the way it looks like, so don't use it. Use this "real" version
-            return shiftPresentationRepository.getByGroupAndTimeScopeReal(groupName,start,end);
-
+            return shiftPresentationRepository.getByGroupAndTimeScope(groupName,start,end);
         }
-
     }
-
-
-    public List<ShiftPresentation> getByGroupAndTimeScope(String groupName,
-                                                          ZonedDateTime start,
-                                                          ZonedDateTime end){
-        return shiftPresentationRepository.getByGroupAndTimeScope(groupName,start,end);
-
-    }
-
 }
